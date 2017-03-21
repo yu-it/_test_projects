@@ -43,4 +43,16 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//below is my code
+var dgram = require('dgram');
+sock = dgram.createSocket("udp4", function (msg, rinfo) {
+  console.log('got message from '+ rinfo.address +':'+ rinfo.port);
+  console.log('data len: '+ rinfo.size + " data: "+
+              msg.toString('ascii', 0, rinfo.size));
+});
+
+sock.bind(8000, '0.0.0.0');
+
+
+
 module.exports = app;

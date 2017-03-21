@@ -46,9 +46,19 @@ app.use(function(err, req, res, next) {
 //below is my code
 var dgram = require('dgram');
 sock = dgram.createSocket("udp4", function (msg, rinfo) {
+  var mess = msg.toString('ascii', 0, rinfo.size)
   console.log('got message from '+ rinfo.address +':'+ rinfo.port);
   console.log('data len: '+ rinfo.size + " data: "+
-              msg.toString('ascii', 0, rinfo.size));
+              mess);
+  if ("where is raspin?" == mess) {
+   var client = dgram.createSocket("udp4");
+   var message = new Buffer("i'm raspin");
+   client.send(message, 0, message.length, rinfo.port, rinfo.address, function(err) {
+   client.close();
+  });
+
+  }
+
 });
 
 sock.bind(8000, '0.0.0.0');

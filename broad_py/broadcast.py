@@ -4,8 +4,6 @@ from contextlib import closing
 
 
 host = ''   # Bind to all interfaces
-port = 51423
-address = "10.89.107."
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
